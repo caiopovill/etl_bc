@@ -1,22 +1,24 @@
-from typing import List,Dict
+from typing import List, Dict
 from bs4 import BeautifulSoup
-class HtmlCollector:
+
+
+class HtmlCollector():
 
     @classmethod
     def collect_essential_information(cls, html: str) -> List[Dict[str, str]]:
         soup = BeautifulSoup(html, 'html.parser')
 
-        relatorio_ipca = soup.find(class_="container main")
-        relatorio_ipca_href = relatorio_ipca.find_all(class_="accordion")
+        artist_name_list = soup.find(class_='BodyText')
+        artist_name_list_items = artist_name_list.find_all('a')
 
         essential_information = []
-        for relatorios in relatorio_ipca_href:
-            names = relatorios.contents[0]
-            links = relatorios.get('href')
-            essential_information.append(
+        for artist_name in artist_name_list_items:
+            names = artist_name.contents[0]
+            links = 'https://web.archive.org' + artist_name.get('href')
+            essential_information.append({
+                "name": names,
+                "link": links
+            })
 
-                {'mes':names,
-                 'link':links}
-            )
         return essential_information
     
