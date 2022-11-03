@@ -1,4 +1,5 @@
 # pylint: disable=line-too-long
+
 from datetime import date
 from src.stages.contracts.extract_contract import ExtractContract
 extract_contract_mock = ExtractContract(
